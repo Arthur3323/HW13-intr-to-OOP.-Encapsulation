@@ -1,8 +1,7 @@
 package org.skypro.skyshop;
 
 import org.skypro.skyshop.product.Product;
-import org.skypro.skyshop.basket.ProductBasketFull;
-import org.skypro.skyshop.basket.ProductBasketEmpty;
+import org.skypro.skyshop.basket.ProductBasket;
 
 import java.util.Arrays;
 
@@ -10,30 +9,30 @@ import java.util.Arrays;
 public class App {
     public static void main(String[] args) {
 
-        ProductBasketEmpty.printBasket();
+        ProductBasket.printBasket();
 
         System.out.println();
         System.out.println("Примеры с полной корзиной:");
-        ProductBasketFull.addToBasket(grape);
-        ProductBasketFull.addToBasket(banana);
-        ProductBasketFull.addToBasket(orange);
-        ProductBasketFull.addToBasket(apple);
-        ProductBasketFull.addToBasket(apple);
-        ProductBasketFull.addToBasket(apple);
+        ProductBasket.addToBasket(grape);
+        ProductBasket.addToBasket(banana);
+        ProductBasket.addToBasket(orange);
+        ProductBasket.addToBasket(apple);
+        ProductBasket.addToBasket(apple);
+        ProductBasket.addToBasket(apple);
         System.out.println("3 содержимое корзины: ");
-        ProductBasketFull.totalCostBasket();
-        ProductBasketFull.printBasket();
+        ProductBasket.totalCostBasket();
+        ProductBasket.printBasket();
 
         System.out.println();
-        System.out.println(Arrays.toString(ProductBasketFull.basket));
+        System.out.println(Arrays.toString(ProductBasket.basket));
 
         System.out.println("4. Проверка по имени :");
-        ProductBasketFull.checkName(kiwi);
+        ProductBasket.checkName(kiwi);
 
         System.out.println("5. Метод очистки корзины :");
-        ProductBasketFull.emptyingTheBasket();
+        ProductBasket.emptyingTheBasket();
 
-        System.out.println(Arrays.toString(ProductBasketFull.basket));
+        System.out.println(Arrays.toString(ProductBasket.basket));
     }
 
 
