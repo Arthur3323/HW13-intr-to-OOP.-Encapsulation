@@ -7,7 +7,7 @@ public class ProductBasket {
 
     public static Product[] basket = new Product[5];
 
-    public static void addToBasket(Product Product) {
+    public void addToBasket(Product Product) {
         int i = 0;
         for (Product element : basket) {
             if (element == null) {
@@ -23,7 +23,7 @@ public class ProductBasket {
         }
     }
 
-    public static int totalCostBasket() {
+    public int totalCostBasket() {
         int sum = 0;
 
         for (Product element : basket) {
@@ -33,7 +33,7 @@ public class ProductBasket {
         return sum;
     }
 
-    public static void printBasket() {
+    public void printBasket() {
 
         String productName;
         int price;
@@ -53,7 +53,7 @@ public class ProductBasket {
         System.out.println("Итого: <" + totalCostBasket() + ">");
     }
 
-    public static boolean checkName(Product product) {
+    public boolean checkName(Product product) {
 
       for  (Product element: basket) {
             if ( element == product) {
@@ -66,7 +66,7 @@ public class ProductBasket {
     }
 
 
-    public static void emptyingTheBasket() {
+    public void emptyingTheBasket() {
 
         for (int i = 0; i < basket.length; i++) {
             if (basket[i] != null) {

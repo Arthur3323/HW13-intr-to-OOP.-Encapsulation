@@ -9,28 +9,33 @@ import java.util.Arrays;
 public class App {
     public static void main(String[] args) {
 
-        ProductBasket.printBasket();
+
+        ProductBasket testBasket = new ProductBasket();
+        testBasket.printBasket();
 
         System.out.println();
         System.out.println("Примеры с полной корзиной:");
-        ProductBasket.addToBasket(grape);
-        ProductBasket.addToBasket(banana);
-        ProductBasket.addToBasket(orange);
-        ProductBasket.addToBasket(apple);
-        ProductBasket.addToBasket(apple);
-        ProductBasket.addToBasket(apple);
+
+
+        testBasket.addToBasket(grape);
+        testBasket.addToBasket(banana);
+        testBasket.addToBasket(orange);
+        testBasket.addToBasket(apple);
+        testBasket.addToBasket(apple);
+        testBasket.addToBasket(apple);
         System.out.println("3 содержимое корзины: ");
-        ProductBasket.totalCostBasket();
-        ProductBasket.printBasket();
+        testBasket.totalCostBasket();
+        testBasket.printBasket();
 
         System.out.println();
         System.out.println(Arrays.toString(ProductBasket.basket));
 
         System.out.println("4. Проверка по имени :");
-        ProductBasket.checkName(kiwi);
+
+        testBasket.checkName(kiwi);
 
         System.out.println("5. Метод очистки корзины :");
-        ProductBasket.emptyingTheBasket();
+        testBasket.emptyingTheBasket();
 
         System.out.println(Arrays.toString(ProductBasket.basket));
     }
