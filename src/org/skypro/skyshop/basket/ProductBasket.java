@@ -37,12 +37,13 @@ public class ProductBasket {
 
         String productName;
         int price;
+        int specialProduct = 0;
         for (Product element : basket) {
             if (element != null) {
-
-                productName = element.getProductName();
-                price = element.getPrice();
-                System.out.println("<" + productName + "> : <" + price + ">");
+                System.out.println(element.toString());
+                if (element.isSpecial()) {
+                    specialProduct ++;
+                }
             }
         }
         if (totalCostBasket() == 0) {
@@ -51,6 +52,7 @@ public class ProductBasket {
         }
 
         System.out.println("Итого: <" + totalCostBasket() + ">");
+        System.out.println("Специальных товаров: <" + specialProduct + ">");
     }
 
     public boolean checkName(Product product) {

@@ -1,7 +1,10 @@
 package org.skypro.skyshop;
 
+import org.skypro.skyshop.product.DiscountedProduct;
+import org.skypro.skyshop.product.FixPriceProduct;
 import org.skypro.skyshop.product.Product;
 import org.skypro.skyshop.basket.ProductBasket;
+import org.skypro.skyshop.product.SimpleProduct;
 
 import java.util.Arrays;
 
@@ -17,10 +20,10 @@ public class App {
         System.out.println("Примеры с полной корзиной:");
 
 
-        testBasket.addToBasket(grape);
+        testBasket.addToBasket(apple);
         testBasket.addToBasket(banana);
         testBasket.addToBasket(orange);
-        testBasket.addToBasket(apple);
+        testBasket.addToBasket(grape);
         testBasket.addToBasket(apple);
         testBasket.addToBasket(apple);
         System.out.println("3 содержимое корзины: ");
@@ -36,19 +39,19 @@ public class App {
 
         System.out.println("5. Метод очистки корзины :");
         testBasket.emptyingTheBasket();
-
         System.out.println(Arrays.toString(ProductBasket.basket));
+
     }
 
 
-    private static Product banana = new Product("Бананы", 100);
-    private static Product orange = new Product("Апельсины", 70);
-    private static Product apple = new Product("Яблоко", 90);
-    private static Product kiwi = new Product("Киви", 120);
-    private static Product grape = new Product("Виноград", 150);
+    private static SimpleProduct banana = new SimpleProduct("Бананы", 100);
+    private static FixPriceProduct orange = new FixPriceProduct("Апельсины");
+    private static DiscountedProduct apple = new DiscountedProduct("Яблоко", 110, 10);
+    private static SimpleProduct kiwi = new SimpleProduct("Киви", 120);
+    private static SimpleProduct grape = new SimpleProduct("Виноград", 150);
 
 
-    private Product[] products = {banana, orange, kiwi, apple, grape};
+
 
 
 }
