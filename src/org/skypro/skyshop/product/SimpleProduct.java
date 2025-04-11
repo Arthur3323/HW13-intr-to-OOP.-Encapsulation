@@ -25,4 +25,14 @@ public class SimpleProduct extends Product {
     public boolean isSpecial() {
         return false;
     }
+
+    @Override
+    public String searchName() {
+        return "";
+    }
+
+    @Override
+    public String getStringRepresentation() {
+        return super.getStringRepresentation();
+    }
 }

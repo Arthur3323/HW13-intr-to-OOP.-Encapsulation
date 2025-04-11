@@ -28,4 +28,13 @@ public class DiscountedProduct extends Product {
         return true;
     }
 
+    @Override
+    public String searchName() {
+        return "";
+    }
+
+    @Override
+    public String getStringRepresentation() {
+        return super.getStringRepresentation();
+    }
 }
