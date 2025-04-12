@@ -30,7 +30,7 @@ public abstract class Product implements Searchable{
 
     @Override
     public String searchTerm () {
-        return productName;
+        return toString();
     }
 
 

@@ -12,7 +12,7 @@ public class Article implements Searchable {
     }
 
     public String toString() {
-        return "Article{" +
+        return "ARTICLE{" +
                 "articleName='" + articleName + '\'' +
                 ", articleText='" + articleText + '\'' +
                 '}';

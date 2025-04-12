@@ -39,6 +39,7 @@ public class App {
         testBasket.emptyingTheBasket();
         System.out.println(Arrays.toString(ProductBasket.basket));
         System.out.println("Intreface:");
+
         Article article1 = new Article( "article1Name", "article1Text");
         Article article2 = new Article( "article2Name", "article2Text");
         Article article3 = new Article( "article3Name", "article3Text");
