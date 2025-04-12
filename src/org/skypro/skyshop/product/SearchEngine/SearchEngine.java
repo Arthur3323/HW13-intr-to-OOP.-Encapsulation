@@ -33,6 +33,7 @@ public class SearchEngine {
                 result[countResult] = searchables[i];
                 countResult++;
             }
+
         if (countResult == 5) break;
     }
         return result;
