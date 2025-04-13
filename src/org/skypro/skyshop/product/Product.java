@@ -29,13 +29,13 @@ public abstract class Product implements Searchable{
    public abstract boolean isSpecial();
 
     @Override
-    public String searchTerm () {
+    public String getSearchTerm() {
         return toString();
     }
 
 
     @Override
-    public String searchType () {
+    public String getSearchType() {
         return "PRODUCT";
     }
 

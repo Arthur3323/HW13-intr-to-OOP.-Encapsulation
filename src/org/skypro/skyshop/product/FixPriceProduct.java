@@ -27,7 +27,7 @@ public class FixPriceProduct extends Product{
     }
 
     @Override
-    public String searchName() {
+    public String getSearchName() {
         return "";
     }
 

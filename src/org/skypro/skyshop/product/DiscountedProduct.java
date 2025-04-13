@@ -29,7 +29,7 @@ public class DiscountedProduct extends Product {
     }
 
     @Override
-    public String searchName() {
+    public String getSearchName() {
         return "";
     }
 

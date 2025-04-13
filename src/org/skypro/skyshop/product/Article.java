@@ -17,11 +17,11 @@ public class Article implements Searchable {
                 ", articleText='" + articleText + '\'' +
                 '}';
     }
-    public String searchTerm () {
+    public String getSearchTerm() {
         return toString();
     }
 
-    public String searchType () {
+    public String getSearchType() {
         return "ARTICLE";
     }
 
@@ -35,7 +35,7 @@ public class Article implements Searchable {
     }
 
     @Override
-    public String searchName() {
+    public String getSearchName() {
         return getName();
     }
 }

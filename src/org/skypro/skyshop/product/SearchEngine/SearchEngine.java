@@ -2,8 +2,6 @@ package org.skypro.skyshop.product.SearchEngine;
 
 import org.skypro.skyshop.product.Searchable;
 
-import java.util.Arrays;
-
 public class SearchEngine {
 
     private int count;
@@ -29,7 +27,7 @@ public class SearchEngine {
         int countResult = 0;
         Searchable[] result = new Searchable[5];
         for (int i = 0; i < count; i++) {
-            if (searchables[i].searchTerm().contains(searchTerm)) {
+            if (searchables[i].getSearchTerm().contains(searchTerm)) {
                 result[countResult] = searchables[i];
                 countResult++;
             }
