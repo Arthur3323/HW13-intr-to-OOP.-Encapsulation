@@ -5,46 +5,56 @@ import org.skypro.skyshop.basket.ProductBasket;
 import org.skypro.skyshop.product.SearchEngine.BestResultNotFound;
 import org.skypro.skyshop.product.SearchEngine.SearchEngine;
 
-import java.util.Arrays;
+
+import java.util.List;
 
 
 public class App {
     public static void main(String[] args) {
 
-
+        System.out.println("1. Изменение используемой структуры данных в классе ProductBacket:");
         ProductBasket testBasket = new ProductBasket();
         testBasket.printBasket();
-
-        System.out.println();
-        System.out.println("Примеры с полной корзиной:");
-
 
         testBasket.addToBasket(apple);
         testBasket.addToBasket(banana);
         testBasket.addToBasket(orange);
         testBasket.addToBasket(grape);
         testBasket.addToBasket(apple);
-        testBasket.addToBasket(apple);
-        System.out.println("3 содержимое корзины: ");
-        testBasket.totalCostBasket();
+        System.out.println("Cодержимое корзины: ");
+
         testBasket.printBasket();
 
-        System.out.println();
-        System.out.println(Arrays.toString(ProductBasket.basket));
-
-        System.out.println("4. Проверка по имени :");
+        System.out.println("Проверка по имени :");
 
         testBasket.checkName(kiwi);
+        testBasket.checkName(apple);
 
-        System.out.println("5. Метод очистки корзины :");
-        testBasket.emptyingTheBasket();
-        System.out.println(Arrays.toString(ProductBasket.basket));
-        System.out.println("Intreface:");
+        System.out.println("\n2. Добавление метода удаления продукта по имени из корзины: ");
 
-        Article article1 = new Article("article1Name", "article1Text");
-        Article article2 = new Article("article2Name", "article2Text");
-        Article article3 = new Article("article3Name", "article3Text");
-        Article article4 = new Article("article4Name", "article4Text");
+        System.out.println("2.1 Удалить существующий продукт из корзины:");
+        List<Product> removed = testBasket.removeProductsByName("Яблоко");
+        System.out.println("Удаленные продукты:");
+        for (Product p : removed) {
+            System.out.println(p.getProductName());
+        }
+        testBasket.printBasket();
+
+        System.out.println("2.4 Удалить несуществующий продукт:");
+        List<Product> notExist = testBasket.removeProductsByName("Хурма");
+        if (notExist.isEmpty()) {
+            System.out.println("Список пуст");
+        }
+        testBasket.printBasket();
+
+
+
+
+        System.out.println("\n3. Изменение используемой структуры данных в классе SearchEngine: ");
+        Article article1 = new Article("Роберт Мартин - Чистый код", "Это книга о принципах и практиках написания читабельного и поддерживаемого кода");
+        Article article2 = new Article("Эрих Гамма - Паттерны проектирования", "Это как рецепты или стратегии для написания кода под разные задачи");
+        Article article3 = new Article("Кэти Сьерра - Изучаем Java", "Книга от издательства O'Relly поможет изучить основы Java: переменные, типы данных, условные операторы, циклы и другие ключевые концепции");
+        Article article4 = new Article("Герберт Шилдт- Java. Полное руководство", "В книге рассказывается об основах языка — синтаксисе и переменных, и о более сложных темах — многопоточности и сетевых соединениях");
 
 
         SearchEngine searchEngine = new SearchEngine(10);
@@ -55,13 +65,14 @@ public class App {
         searchEngine.add(article3);
         searchEngine.add(article4);
 
-        Searchable[] searchResults = searchEngine.search("ARTICLE");
+        List<Searchable> searchResults = searchEngine.search("код");
+        System.out.println("Все совпадения:");
         for (Searchable result : searchResults) {
             if (result == null) continue;
             System.out.println(result.getStringRepresentation());
         }
 
-        System.out.println("exceptions:");
+        System.out.println("\nПредыдущие задания: \nexceptions:");
 
         try {
             SimpleProduct nullProduct = new SimpleProduct("", 150);
@@ -88,7 +99,7 @@ public class App {
         }
 
         try {
-            DiscountedProduct belowВiscountProduct = new DiscountedProduct("Курага", 80, -10);
+            DiscountedProduct belowDiscountProduct = new DiscountedProduct("Курага", 80, -10);
         } catch (IllegalArgumentException e) {
             System.out.println("Ошибка 5: " + e.getMessage());
         }

@@ -7,8 +7,8 @@ public interface Searchable {
      String getSearchName();
 
     default String getStringRepresentation() {
-        return  getSearchName() + " имя Searchable-объекта "
-                + getSearchType() + " тип Searchable-объекта";
+        return "`" + getSearchName() + "` - имя Searchable-объекта "
+              + "`" + getSearchType() + "` - тип Searchable-объекта";
     }
 
 

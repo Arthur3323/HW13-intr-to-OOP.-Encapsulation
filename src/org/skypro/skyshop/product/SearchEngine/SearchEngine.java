@@ -1,44 +1,34 @@
 package org.skypro.skyshop.product.SearchEngine;
-
 import org.skypro.skyshop.product.Searchable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SearchEngine {
 
-    private int count;
-    private Searchable[] searchables;
-
+    private List<Searchable> searchables;
 
     public SearchEngine (int sizeArray) {
-        this.searchables = new Searchable[sizeArray];
-        this.count = 0;
+        this.searchables = new ArrayList<>(sizeArray);
     }
 
 
 
     public void add(Searchable searchable) {
-        if (count >= searchables.length) {
-            System.out.println("Переполнено!");
-        } else {
-            searchables[count++] = searchable;
-        }
+        searchables.add(searchable);
     }
 
-    public Searchable[] search ( String searchTerm) {
-        int countResult = 0;
-        Searchable[] result = new Searchable[5];
-        for (int i = 0; i < count; i++) {
-            if (searchables[i].getSearchTerm().contains(searchTerm)) {
-                result[countResult] = searchables[i];
-                countResult++;
+    public List<Searchable> search(String searchTerm) {
+        List<Searchable> result = new ArrayList<>();
+        for (Searchable searchable : searchables) {
+            if (searchable.getSearchTerm().contains(searchTerm)) {
+                result.add(searchable);
             }
-
-        if (countResult == 5) break;
-    }
+        }
         return result;
     }
 
     public Searchable findBestMatch(String search) throws BestResultNotFound {
-        if (search == null || search.isBlank() || count == 0) {
+        if (search == null || search.isBlank() || searchables.isEmpty()) {
             throw new BestResultNotFound("Search term is invalid: '" + search + "'");
         }
 
@@ -47,8 +37,7 @@ public class SearchEngine {
         Searchable bestMatch = null;
         int maxCount = -1;
 
-        for (int i = 0; i < count; i++) {
-            Searchable current = searchables[i];
+        for (Searchable current : searchables) {
             String term = current.getSearchTerm();
             int currentCount = countOccurrences(term, search);
 
@@ -76,7 +65,7 @@ public class SearchEngine {
 
         while (true) {
             int pos = str.indexOf(substring, index);
-            if (pos == -1) {
+            if (pos == -1){
                 break;
             }
             count++;
