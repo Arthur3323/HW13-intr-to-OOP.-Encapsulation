@@ -7,6 +7,7 @@ import org.skypro.skyshop.product.SearchEngine.SearchEngine;
 
 
 import java.util.List;
+import java.util.Map;
 
 
 public class App {
@@ -65,11 +66,14 @@ public class App {
         searchEngine.add(article3);
         searchEngine.add(article4);
 
-        List<Searchable> searchResults = searchEngine.search("код");
+        System.out.println("\nМодификация возвращаемого значения в методе поиска ");
+
+        Map<String, Searchable> searchResults = searchEngine.search("код");
         System.out.println("Все совпадения:");
-        for (Searchable result : searchResults) {
-            if (result == null) continue;
-            System.out.println(result.getStringRepresentation());
+        for (Map.Entry<String, Searchable> entry : searchResults.entrySet()) {
+            String name = entry.getKey();
+            Searchable item = entry.getValue();
+            System.out.println(item);
         }
 
         System.out.println("\nПредыдущие задания: \nexceptions:");

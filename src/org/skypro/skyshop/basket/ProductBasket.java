@@ -3,70 +3,69 @@ package org.skypro.skyshop.basket;
 import org.skypro.skyshop.product.Product;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Iterator;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ProductBasket {
-    private List<Product> products = new LinkedList<>();
+    private Map<String, List<Product>> productsMap = new HashMap<>();
 
     public void addToBasket(Product product) {
-        products.add(product);
+        productsMap.computeIfAbsent(product.getProductName(), k -> new ArrayList<>()).add(product);
     }
 
     public List<Product> removeProductsByName(String name) {
-        List<Product> removedProducts = new ArrayList<>();
-        Iterator<Product> iterator = products.iterator();
-        while (iterator.hasNext()) {
-            Product product = iterator.next();
-            if (product.getProductName().equals(name)) {
-                removedProducts.add(product);
-                iterator.remove();
-            }
-        }
-        return removedProducts;
+        List<Product> removed = productsMap.remove(name);
+        return removed != null ? removed : new ArrayList<>();
     }
 
     public int totalCostBasket() {
         int sum = 0;
-
-        for (Product element : products) {
-            if (element != null)
-                sum += element.getPrice();
+        for (List<Product> productList : productsMap.values()) {
+            for (Product product : productList) {
+                if (product != null) {
+                    sum += product.getPrice();
+                }
+            }
         }
         return sum;
     }
 
     public void printBasket() {
-
-        if (totalCostBasket() == 0) {
-            System.out.println("в корзине пусто");
+        if (productsMap.isEmpty()) {
+            System.out.println("В корзине пусто");
             return;
         }
 
         int specialProduct = 0;
-        for (Product element : products) {
-            if (element != null) {
-                System.out.println(element.toString());
-                if (element.isSpecial()) {
-                    specialProduct ++;
+        int totalItems = 0;
+
+        for (Map.Entry<String, List<Product>> entry : productsMap.entrySet()) {
+            for (Product product : entry.getValue()) {
+                if (product != null) {
+                    System.out.println(product.toString());
+                    totalItems++;
+                    if (product.isSpecial()) {
+                        specialProduct++;
+                    }
                 }
             }
         }
 
-        System.out.println("Итого: <" + totalCostBasket() + ">");
+        System.out.println("Итого товаров: " + totalItems);
+        System.out.println("Общая стоимость: <" + totalCostBasket() + ">");
         System.out.println("Специальных товаров: <" + specialProduct + ">");
     }
 
     public boolean checkName(Product product) {
-      for  (Product element: products) {
-            if ( element == product) {
-                System.out.println("есть " + product);
+        for (List<Product> productList : productsMap.values()) {
+            if (productList.contains(product)) {
+                System.out.println("Есть " + product);
                 return true;
             }
-
-        }  System.out.println("Нет " + product);
-      return false;
+        }
+        System.out.println("Нет " + product);
+        return false;
     }
 
 
