@@ -4,10 +4,10 @@ import java.util.*;
 
 public class SearchEngine {
 
-    private List<Searchable> searchables;
+    private Set<Searchable> searchables;
 
     public SearchEngine (int sizeArray) {
-        this.searchables = new ArrayList<>(sizeArray);
+        this.searchables = new HashSet<>(sizeArray);
     }
 
 
@@ -16,16 +16,33 @@ public class SearchEngine {
         searchables.add(searchable);
     }
 
-    public Map<String, Searchable> search(String searchTerm) {
-        Map<String, Searchable> resultMap = new TreeMap<>();
+    public Set<Searchable> search(String searchTerm) {
+        Set<Searchable> resultSet = new TreeSet<>(new SearchableComparator());
 
         for (Searchable item : searchables) {
             if (item.getSearchTerm().contains(searchTerm)) {
-                resultMap.put(item.getSearchTerm(), item);
+                resultSet.add(item);
             }
         }
-        return resultMap;
+        return resultSet;
     }
+
+    private static class SearchableComparator implements Comparator<Searchable> {
+        @Override
+        public int compare(Searchable s1, Searchable s2) {
+            String term1 = s1.getSearchTerm();
+            String term2 = s2.getSearchTerm();
+
+            int lengthCompare = Integer.compare(term2.length(), term1.length());
+            if (lengthCompare != 0) {
+                return lengthCompare;
+            }
+
+            return term1.compareTo(term2);
+        }
+    }
+
+
 
     public Searchable findBestMatch(String search) throws BestResultNotFound {
         if (search == null || search.isBlank() || searchables.isEmpty()) {

@@ -8,6 +8,7 @@ import org.skypro.skyshop.product.SearchEngine.SearchEngine;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 
 public class App {
@@ -53,7 +54,7 @@ public class App {
 
         System.out.println("\n3. Изменение используемой структуры данных в классе SearchEngine: ");
         Article article1 = new Article("Роберт Мартин - Чистый код", "Это книга о принципах и практиках написания читабельного и поддерживаемого кода");
-        Article article2 = new Article("Эрих Гамма - Паттерны проектирования", "Это как рецепты или стратегии для написания кода под разные задачи");
+        Article article2 = new Article("Эрих Гамма код - Паттерны проектирования", "Это как рецепты или стратегии для написания кода под разные задачи");
         Article article3 = new Article("Кэти Сьерра - Изучаем Java", "Книга от издательства O'Relly поможет изучить основы Java: переменные, типы данных, условные операторы, циклы и другие ключевые концепции");
         Article article4 = new Article("Герберт Шилдт- Java. Полное руководство", "В книге рассказывается об основах языка — синтаксисе и переменных, и о более сложных темах — многопоточности и сетевых соединениях");
 
@@ -68,15 +69,13 @@ public class App {
 
         System.out.println("\nМодификация возвращаемого значения в методе поиска ");
 
-        Map<String, Searchable> searchResults = searchEngine.search("код");
+        Set<Searchable> searchResults = searchEngine.search("код");
         System.out.println("Все совпадения:");
-        for (Map.Entry<String, Searchable> entry : searchResults.entrySet()) {
-            String name = entry.getKey();
-            Searchable item = entry.getValue();
+        for (Searchable item : searchResults){
             System.out.println(item);
         }
 
-        System.out.println("\nПредыдущие задания: \nexceptions:");
+        System.out.println("\nexceptions:");
 
         try {
             SimpleProduct nullProduct = new SimpleProduct("", 150);
