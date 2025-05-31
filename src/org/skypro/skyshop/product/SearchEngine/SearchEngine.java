@@ -27,20 +27,7 @@ public class SearchEngine {
         return resultSet;
     }
 
-    private static class SearchableComparator implements Comparator<Searchable> {
-        @Override
-        public int compare(Searchable s1, Searchable s2) {
-            String term1 = s1.getSearchTerm();
-            String term2 = s2.getSearchTerm();
 
-            int lengthCompare = Integer.compare(term2.length(), term1.length());
-            if (lengthCompare != 0) {
-                return lengthCompare;
-            }
-
-            return term1.compareTo(term2);
-        }
-    }
 
 
 
@@ -48,8 +35,6 @@ public class SearchEngine {
         if (search == null || search.isBlank() || searchables.isEmpty()) {
             throw new BestResultNotFound("Search term is invalid: '" + search + "'");
         }
-
-
 
         Searchable bestMatch = null;
         int maxCount = -1;
