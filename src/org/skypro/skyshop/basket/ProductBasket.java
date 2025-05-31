@@ -2,79 +2,83 @@ package org.skypro.skyshop.basket;
 
 import org.skypro.skyshop.product.Product;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ProductBasket {
+    private Map<String, List<Product>> productsMap = new HashMap<>();
 
-    public static Product[] basket = new Product[5];
-
-    public static void addToBasket(Product Product) {
-        int i = 0;
-        for (Product element : basket) {
-            if (element == null) {
-                basket[i] = Product;
-                return;
-            }
-            i += 1;
-            if (i == 5) {
-                System.out.println("Невозможно добавить продукт");
-                System.out.println();
-                return;
-            }
-        }
+    public void addToBasket(Product product) {
+        productsMap.computeIfAbsent(product.getProductName(), k -> new ArrayList<>()).add(product);
     }
 
-    public static int totalCostBasket() {
-        int sum = 0;
+    public List<Product> removeProductsByName(String name) {
+        List<Product> removed = productsMap.remove(name);
+        return removed != null ? removed : new ArrayList<>();
+    }
 
-        for (Product element : basket) {
-            if (element != null)
-                sum += element.getPrice();
+    public int totalCostBasket() {
+        int sum = 0;
+        for (List<Product> productList : productsMap.values()) {
+            for (Product product : productList) {
+                if (product != null) {
+                    sum += product.getPrice();
+                }
+            }
         }
         return sum;
     }
 
-    public static void printBasket() {
-
-        String productName;
-        int price;
-        for (Product element : basket) {
-            if (element != null) {
-
-                productName = element.getProductName();
-                price = element.getPrice();
-                System.out.println("<" + productName + "> : <" + price + ">");
-            }
-        }
-        if (totalCostBasket() == 0) {
-            System.out.println("в корзине пусто");
+    public void printBasket() {
+        if (productsMap.isEmpty()) {
+            System.out.println("В корзине пусто");
             return;
         }
 
-        System.out.println("Итого: <" + totalCostBasket() + ">");
-    }
+        int specialProduct = 0;
+        int totalItems = 0;
 
-    public static boolean checkName(Product product) {
-
-      for  (Product element: basket) {
-            if ( element == product) {
-                System.out.println("есть такой");
-                return true;
+        for (Map.Entry<String, List<Product>> entry : productsMap.entrySet()) {
+            for (Product product : entry.getValue()) {
+                if (product != null) {
+                    System.out.println(product.toString());
+                    totalItems++;
+                    if (product.isSpecial()) {
+                        specialProduct++;
+                    }
+                }
             }
-
-        }  System.out.println("Такого нет");
-      return false;
-    }
-
-
-    public static void emptyingTheBasket() {
-
-        for (int i = 0; i < basket.length; i++) {
-            if (basket[i] != null) {
-                basket[i] = null;
-            }
-
         }
 
+        System.out.println("Итого товаров: " + totalItems);
+        System.out.println("Общая стоимость: <" + totalCostBasket() + ">");
+        System.out.println("Специальных товаров: <" + specialProduct + ">");
+    }
+
+    public boolean checkName(Product product) {
+        for (List<Product> productList : productsMap.values()) {
+            if (productList.contains(product)) {
+                System.out.println("Есть " + product);
+                return true;
+            }
+        }
+        System.out.println("Нет " + product);
+        return false;
+    }
+
+
+
+
+
+//    public void emptyingTheBasket() {
+//
+//        for (int i = 0; i < products.length; i++) {
+//            if (products[i] != null) {
+//                products[i] = null;
+//            }
+//        }
+//    }
 
     }
-}
