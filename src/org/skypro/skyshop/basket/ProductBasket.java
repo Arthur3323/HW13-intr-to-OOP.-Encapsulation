@@ -2,10 +2,9 @@ package org.skypro.skyshop.basket;
 
 import org.skypro.skyshop.product.Product;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
+
 
 public class ProductBasket {
     private Map<String, List<Product>> productsMap = new HashMap<>();
@@ -20,15 +19,11 @@ public class ProductBasket {
     }
 
     public int totalCostBasket() {
-        int sum = 0;
-        for (List<Product> productList : productsMap.values()) {
-            for (Product product : productList) {
-                if (product != null) {
-                    sum += product.getPrice();
-                }
-            }
-        }
-        return sum;
+        return productsMap.values().stream()
+                .flatMap(Collection::stream)
+                .filter(Objects::nonNull)
+                .mapToInt(Product::getPrice)
+                .sum();
     }
 
     public void printBasket() {
@@ -37,48 +32,39 @@ public class ProductBasket {
             return;
         }
 
-        int specialProduct = 0;
-        int totalItems = 0;
+        List<Product> allProducts = productsMap.values().stream()
+                .flatMap(Collection::stream)
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
 
-        for (Map.Entry<String, List<Product>> entry : productsMap.entrySet()) {
-            for (Product product : entry.getValue()) {
-                if (product != null) {
-                    System.out.println(product.toString());
-                    totalItems++;
-                    if (product.isSpecial()) {
-                        specialProduct++;
-                    }
-                }
-            }
-        }
+        allProducts.forEach(product -> System.out.println(product));
 
-        System.out.println("Итого товаров: " + totalItems);
+        System.out.println("Итого товаров: " + allProducts.size());
         System.out.println("Общая стоимость: <" + totalCostBasket() + ">");
-        System.out.println("Специальных товаров: <" + specialProduct + ">");
+        System.out.println("Специальных товаров: <" + getSpecialCount() + ">");
+
+    }
+
+    private long getSpecialCount() {
+        return productsMap.values().stream()
+                .flatMap(Collection::stream)
+                .filter(Objects::nonNull)
+                .filter(Product::isSpecial)
+                .count();
     }
 
     public boolean checkName(Product product) {
-        for (List<Product> productList : productsMap.values()) {
-            if (productList.contains(product)) {
-                System.out.println("Есть " + product);
-                return true;
-            }
+        boolean found = productsMap.values().stream()
+                .flatMap(Collection::stream)                        // Поток всех продуктов
+                .anyMatch(p -> p.equals(product));                  // Проверка, есть ли такой продукт
+
+        if (found) {
+            System.out.println("Есть " + product);
+        } else {
+            System.out.println("Нет " + product);
         }
-        System.out.println("Нет " + product);
-        return false;
+
+        return found;
     }
 
-
-
-
-
-//    public void emptyingTheBasket() {
-//
-//        for (int i = 0; i < products.length; i++) {
-//            if (products[i] != null) {
-//                products[i] = null;
-//            }
-//        }
-//    }
-
-    }
+}
